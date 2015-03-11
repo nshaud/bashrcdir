@@ -7,6 +7,14 @@ if [ -f /etc/bash_completion ]; then
 	    . /etc/bash_completion
 fi
 
+if [ -f ./bash_aliases ]; then
+	    . ./bash_aliases
+fi
+
+if [ -f ./bash_aliases.local ]; then
+            . ./bash_aliases.local
+fi
+
 xhost +local:root > /dev/null 2>&1
 
 complete -cf sudo
@@ -132,11 +140,6 @@ fi
 
 # Cas d'un client root en SSH
 	export PS1="$Pipe_LU $BBlue[\#] $Yellow(\D{%d-%m-%y} $BYellow\t$Yellow) $BIUser_Color\u$IUser_Color@$BIUser_Color\h$Color_Off: $BPurple\w $BRed\$$Color_Off\n$Pipe_LD$Pipe_End "
-
-# Import des alias
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
 
 # Import des alias locaux particuliers à la machine
 if [ -f ~/.bash_aliases.local ]; then
