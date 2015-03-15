@@ -128,7 +128,7 @@ if [[ $EUID == 0 ]]; then
     User_Color=$IRed
     BUser_Color=$BRed
     BIUser_Color=$BIRed
-elif [ $SSH_CLIENT ]; then
+elif [ -n "$SSH_CLIENT" ]; then
     User_Color=$IBlue
     BUser_Color=$BBlue
     BIUser_Color=$BIBlue
