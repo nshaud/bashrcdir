@@ -124,6 +124,12 @@ Pipe_LD='\342\224\224'
 # Embout :
 Pipe_End='\342\225\274'
 
+if [[ $VIRTUAL_ENV != "" ]]; then
+    venv="$Green(${VIRTUAL_ENV##*/})$Color_Off"
+else
+	venv=""
+fi
+
 if [[ $EUID == 0 ]]; then
     User_Color=$IRed
     BUser_Color=$BRed
@@ -139,7 +145,7 @@ else
 fi
 
 # Cas d'un client root en SSH
-	export PS1="$Pipe_LU $BBlue[\#] $Yellow(\D{%d-%m-%y} $BYellow\t$Yellow) $BIUser_Color\u$IUser_Color@$BIUser_Color\h$Color_Off: $BPurple\w $BRed\$$Color_Off\n$Pipe_LD$Pipe_End "
+	export PS1="$Pipe_LU $BBlue[\#] $Yellow(\D{%d-%m-%y} $BYellow\t$Yellow) $BIUser_Color\u$IUser_Color@$BIUser_Color\h$Color_Off: $BPurple\w $BRed\$$Color_Off$venv\n$Pipe_LD$Pipe_End "
 
 # Import des alias locaux particuliers à la machine
 if [ -f ~/.bash_aliases.local ]; then
