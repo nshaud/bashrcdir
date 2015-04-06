@@ -7,12 +7,12 @@ if [ -f /etc/bash_completion ]; then
 	    . /etc/bash_completion
 fi
 
-if [ -f ./bash_aliases ]; then
-	    . ./bash_aliases
+if [ -f ~/.bashrcdir/bash_aliases ]; then
+	    . ~/.bashrcdir/bash_aliases
 fi
 
-if [ -f ./bash_aliases.local ]; then
-            . ./bash_aliases.local
+if [ -f ~/.bashrcdir/bash_aliases.local ]; then
+            . ~/.bashrcdir/bash_aliases.local
 fi
 
 xhost +local:root > /dev/null 2>&1
