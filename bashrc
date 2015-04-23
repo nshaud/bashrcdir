@@ -154,5 +154,9 @@ fi
 
 # Citation aléatoire (fortune-mod)
 if [ -f /usr/games/fortune -a "$(id -u)" != 0 ]; then
-    /usr/games/fortune
+	if [ -f /usr/games/cowsay -a "$(id -u)" != 0 ]; then
+		/usr/games/fortune -as | /usr/games/cowsay -nf duck
+	else
+		/usr/games/fortune -as
+	fi
 fi
