@@ -67,50 +67,64 @@ function faketype(){
 }
 
 # Lecture vidéo en ASCII Art
-#function vid2ascii(){
-#    local COMMAND="mplayer -monitorpixelaspect 0.5 -contrast 50 -quiet "
-#    local LIB="-vo aa:driver=curses "
-#    local EXECUTE=1
-#    local OPTIONS=""
-#    while getopts "chqv:" opt; do
-#      echo -e "Plop : $opt" "\n"
-#      case $opt in
-#        c)
-#            echo "Couleur"
-#            LIB=" -vo caca:driver=curses " 
-#        ;;
-#        h)
-#            echo -e "$VERT" "Aide de la fonction vid2ascii :" "\n"
-#            echo -e "    - Utilisation : vid2ascii -v VIDEO --options" "\n"
-#            echo -e "    - Liste des options :" "\n"
-#            echo -e "        -h Affiche cette aide" "\n"
-#            echo -e "        -c Active la couleur (libcaca)" "\n"
-#            echo -e "        -s Silencieux, cache tous les messages mplayer" "\n"
-#            echo -e "$NORMAL";
-#            EXECUTE=0
-#        ;;
-#        q)
-#            OPTIONS+=" -really-quiet "
-#        ;;
-#        v)
-#            local VIDEO=$OPTARG
-#        ;;
-#        \?)
-#            echo "Option invalide : -$OPTARG" >&2
-#        ;;
-#      esac
-#      shift
-#    done
-#    if [[ $EXECUTE -eq 1 ]]; then
-#        COMMAND+=" "
-#        COMMAND+=$LIB
-#        COMMAND+=" "
-#        COMMAND+=$OPTIONS
-#        COMMAND+=$VIDEO
-#        echo "Lib " $LIB
-#        echo "Options " $OPTIONS
-#        echo "Video " $VIDEO
-#        echo -e "$ROUGE" "Appuyez sur CTRL+C pour couper la vidéo" "$NORMAL"
-#        eval $COMMAND
-#    fi
-#}
+function vid2ascii(){
+	# Rend local OPTIND (pour getopt)
+	local OPTIND o a
+	# Commande player de base
+	# -monitorpixelaspect : définit le ratio largeur/hauteur (1/2 permet de compenser la taille des caractères)
+	# -contrast 50 : pousse le contraste pour avoir une meilleure différence noire/blanc
+	# -quiet : supprime le HUD Mplayer
+	# -nolirc : désactive le support des télécommandes et fait disparaître deux messages d'erreurs inutiles
+    local COMMAND="mplayer -monitorpixelaspect 0.5 -contrast 50 -quiet -nolirc "
+	# Par défaut, on utilise aa sous ncurses pour l'affichage
+    local LIB="-vo aa:driver=curses "
+    local OPTIONS=""
+	local FORCE_DRIVER=""
+	local VIDEO=""
+    local EXECUTE=1
+
+	# Récupération des arguments
+    while getopts "chqv:" opt; do
+      case $opt in
+		# Couleur (color)
+        c)
+			# Force la variable CACA_DRIVER pour l'utilisation de ncurses
+			# (caca ne supporte pas la directive caca:driver=curses)
+			FORCE_DRIVER='CACA_DRIVER=ncurses'
+            LIB=" -vo caca " 
+            ;;
+		# Aide (help)
+        h)
+            echo -e "$VERT" "Aide de la fonction vid2ascii :" "\n"
+            echo -e "    - Utilisation : vid2ascii -v VIDEO --options" "\n"
+            echo -e "    - Liste des options :" "\n"
+            echo -e "        -h Affiche cette aide" "\n"
+            echo -e "        -c Active la couleur (libcaca)" "\n"
+            echo -e "        -q Silencieux, cache tous les messages mplayer" "\n"
+            echo -e "$NORMAL";
+            EXECUTE=0
+            ;;
+		# Silencieux (quiet)
+		# Supprime encore plus de messages mplayer
+        q)
+            OPTIONS+=" -really-quiet "
+            ;;
+		# Vidéo (video)
+		# Nécessite un argument
+        v)
+            VIDEO="\"${OPTARG}\""
+            ;;
+		# Option par défaut (inconnue)
+        \?)
+			echo "Option inconnue : -$OPTARG" >&2
+			EXECUTE=0
+            ;;
+      esac
+    done
+    if [[ $EXECUTE -eq 1 ]]; then
+		# Affiche et exécute la commande
+		echo $FORCE_DRIVER $COMMAND $LIB $OPTIONS $VIDEO
+        echo -e "$ROUGE" "Appuyez sur q ou bien faites CTRL+C pour couper la vidéo" "$NORMAL"
+		eval $FORCE_DRIVER $COMMAND $LIB $OPTIONS $VIDEO
+    fi
+}
