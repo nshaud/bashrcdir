@@ -122,20 +122,23 @@ Pipe_LD='\342\224\224'
 # Embout :
 Pipe_End='\342\225\274'
 
-# Environnements virtuels Python
-if [[ $VIRTUAL_ENV != "" ]]; then
-    venv="$Green(${VIRTUAL_ENV##*/})$Color_Off "
-# Environnements virtuels Ruby
-elif [ -f ~/.rvm/bin/rvm-prompt ]; then
-	rvb=$(~/.rvm/bin/rvm-prompt)
-	if [[ $rvb != "" ]]; then
-		venv="$IRed($rvb)$Color_Off "
-	else
-		venv=""
-	fi
-else
-	venv=""
-fi
+function virtualenv_info(){
+    # Environnements virtuels Python
+    if [[ $VIRTUAL_ENV != "" ]]; then
+        venv="$Green(${VIRTUAL_ENV##*/})$Color_Off "
+    # Environnements virtuels Ruby
+    elif [ -f ~/.rvm/bin/rvm-prompt ]; then
+    	rvb=$(~/.rvm/bin/rvm-prompt)
+    	if [[ $rvb != "" ]]; then
+    		venv="$IRed($rvb)$Color_Off "
+    	else
+    		venv=""
+    	fi
+    else
+    	venv=""
+    fi
+	echo -e $venv
+}
 
 # Choix des couleurs pour le prompt
 if [[ $EUID == 0 ]]; then
@@ -162,9 +165,13 @@ else
 	privilege='$'
 fi
 
+# Empêche virtualenv de changer le prompt
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
+venv="\$(virtualenv_info)"
 
 # Mise en forme du prompt
-export PS1="$Pipe_LU $BBlue[\#] $Yellow(\D{%d-%m-%y} $BYellow\t$Yellow) $BIUser_Color\u$IUser_Color@$BIUser_Color\h$Color_Off: $BPurple\w $BRed$privilege$Color_Off$venv\n$Pipe_LD$Pipe_End "
+export PS1="$Pipe_LU $BBlue[\#] $Yellow(\D{%d-%m-%y} $BYellow\t$Yellow) $BIUser_Color\u$IUser_Color@$BIUser_Color\h$Color_Off: $BPurple\w $BRed$privilege$Color_Off ${venv}\n$Pipe_LD$Pipe_End "
 
 # Citation aléatoire (fortune-mod)
 if [ -f /usr/games/fortune -a "$(id -u)" != 0 ]; then
