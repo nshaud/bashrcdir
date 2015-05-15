@@ -19,6 +19,7 @@ alias gerp='grep'
 alias grep='grep --color=auto'
 
 # Alias de navigation
+alias cd..='cd ..'
 alias ..='cd ..'
 alias ...='cd ../../'
 alias ....='cd ../../..'
@@ -29,10 +30,41 @@ alias rm='rm --preserve-root'
 # Alias quotidiens
 alias ssudo='sudo -sE'
 alias ss='ssudo'
-alias sssh='teleport'
+
+# Recharge le bashrc
+alias resetbashrc='source ~/.bashrc'
+
+# Récupérer son IP externe
+alias myip='wget -qO- http://icanhazip.com'
+
+# Afficher l'heure actuelle
+alias now='date +"%T"'
+
+# Sortie de mount plus lisible
+alias mount='mount | column -t'
+
+# Affiche le ports ouverts
+alias ports='netstat -tu'
+
+# Mise à jour toute en un
+alias update='sudo apt update && sudo apt dist-upgrade'
+alias safe-update='sudo apt update && sudo apt upgrade'
+
+# Toujours permettre de continuer un téléchargement wget interrompu
+alias wget='wget -c'
+
+# Ouvrir l'explorateur dans le dossier courant
+alias nemo='nemo $(pwd)'
+alias nautilus='nautilus $(pwd)'
+alias thunar='thunar $(pwd)'
 
 # Marche impériale
 alias imperial-march="beep -l 350 -f 392 -D 100 --new -l 350 -f 392 -D 100 --new -l 350 -f 392 -D 100 --new -l 250 -f 311.1 -D 100 --new -l 25 -f 466.2 -D 100 --new -l 350 -f 392 -D 100 --new -l 250 -f 311.1 -D 100 --new -l 25 -f 466.2 -D 100 --new -l 700 -f 392 -D 100 --new -l 350 -f 587.32 -D 100 --new -l 350 -f 587.32 -D 100 --new -l 350 -f 587.32 -D 100 --new -l 250 -f 622.26 -D 100 --new -l 25 -f 466.2 -D 100 --new -l 350 -f 369.99 -D 100 --new -l 250 -f 311.1 -D 100 --new -l 25 -f 466.2 -D 100 --new -l 700 -f 392 -D 100 --new -l 350 -f 784 -D 100 --new -l 250 -f 392 -D 100 --new -l 25 -f 392 -D 100 --new -l 350 -f 784 -D 100 --new -l 250 -f 739.98 -D 100 --new -l 25 -f 698.46 -D 100 --new -l 25 -f 659.26 -D 100 --new -l 25 -f 622.26 -D 100 --new -l 50 -f 659.26 -D 400 --new -l 25 -f 415.3 -D 200 --new -l 350 -f 554.36 -D 100 --new -l 250 -f 523.25 -D 100 --new -l 25 -f 493.88 -D 100 --new -l 25 -f 466.16 -D 100 --new -l 25 -f 440 -D 100 --new -l 50 -f 466.16 -D 400 --new -l 25 -f 311.13 -D 200 --new -l 350 -f 369.99 -D 100 --new -l 250 -f 311.13 -D 100 --new -l 25 -f 392 -D 100 --new -l 350 -f 466.16 -D 100 --new -l 250 -f 392 -D 100 --new -l 25 -f 466.16 -D 100 --new -l 700 -f 587.32 -D 100 --new -l 350 -f 784 -D 100 --new -l 250 -f 392 -D 100 --new -l 25 -f 392 -D 100 --new -l 350 -f 784 -D 100 --new -l 250 -f 739.98 -D 100 --new -l 25 -f 698.46 -D 100 --new -l 25 -f 659.26 -D 100 --new -l 25 -f 622.26 -D 100 --new -l 50 -f 659.26 -D 400 --new -l 25 -f 415.3 -D 200 --new -l 350 -f 554.36 -D 100 --new -l 250 -f 523.25 -D 100 --new -l 25 -f 493.88 -D 100 --new -l 25 -f 466.16 -D 100 --new -l 25 -f 440 -D 100 --new -l 50 -f 466.16 -D 400 --new -l 25 -f 311.13 -D 200 --new -l 350 -f 392 -D 100 --new -l 250 -f 311.13 -D 100 --new -l 25 -f 466.16 -D 100 --new -l 300 -f 392.00 -D 150 --new -l 250 -f 311.13 -D 100 --new -l 25 -f 466.16 -D 100 --new -l 700 -f 392"
+
+# Simule une écriture au clavier 
+function faketype(){
+	echo -e "$*" | pv -qL 10
+}
 
 # Lecture vidéo en ASCII Art
 #function vid2ascii(){

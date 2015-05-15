@@ -3,20 +3,18 @@
 ###  altay@rez-gif.supelec.fr ###
 #################################
 
+# Autocomplétion bash
 if [ -f /etc/bash_completion ]; then
-	    . /etc/bash_completion
+    . /etc/bash_completion
 fi
 
-if [ -f ~/.bashrcdir/bash_aliases ]; then
-	    . ~/.bashrcdir/bash_aliases
-fi
-
-if [ -f ~/.bashrcdir/bash_aliases.local ]; then
-            . ~/.bashrcdir/bash_aliases.local
+if [ -f /usr/share/bash-completion/bash_completion ]; then
+	. /usr/share/bash-completion/bash_completion
 fi
 
 xhost +local:root > /dev/null 2>&1
 
+# Active l'autocomplétion même avec sudo
 complete -cf sudo
 
 shopt -s autocd
@@ -124,33 +122,40 @@ Pipe_LD='\342\224\224'
 # Embout :
 Pipe_End='\342\225\274'
 
+# Environnements virtuels Python
 if [[ $VIRTUAL_ENV != "" ]]; then
-    venv="$Green(${VIRTUAL_ENV##*/})$Color_Off"
+    venv="$Green(i${VIRTUAL_ENV##*/})$Color_Off "
+elif [ -f ~/.rvm/bin/rvm-prompt ]; then
+	rvb=$(~/.rvm/bin/rvm-prompt)
+	if [[ $rvb != "" ]]; then
+		venv="$IRed($rvb)$Color_Off "
+	else
+		venv=""
+	fi
 else
 	venv=""
 fi
 
+# Choix des couleurs pour le prompt
 if [[ $EUID == 0 ]]; then
+	# Root
     User_Color=$IRed
     BUser_Color=$BRed
     BIUser_Color=$BIRed
 elif [ -n "$SSH_CLIENT" ]; then
+	# SSH
     User_Color=$IBlue
     BUser_Color=$BBlue
     BIUser_Color=$BIBlue
 else
+	# Normal
     User_Color=$IGreen
     BUser_Color=$BGreen
     BIUser_Color=$BIGreen
 fi
 
-# Cas d'un client root en SSH
-	export PS1="$Pipe_LU $BBlue[\#] $Yellow(\D{%d-%m-%y} $BYellow\t$Yellow) $BIUser_Color\u$IUser_Color@$BIUser_Color\h$Color_Off: $BPurple\w $BRed\$$Color_Off$venv\n$Pipe_LD$Pipe_End "
-
-# Import des alias locaux particuliers à la machine
-if [ -f ~/.bash_aliases.local ]; then
-    . ~/.bash_aliases.local
-fi
+# Mise en forme du prompt
+export PS1="$Pipe_LU $BBlue[\#] $Yellow(\D{%d-%m-%y} $BYellow\t$Yellow) $BIUser_Color\u$IUser_Color@$BIUser_Color\h$Color_Off: $BPurple\w $BRed\$$Color_Off$venv\n$Pipe_LD$Pipe_End "
 
 # Citation aléatoire (fortune-mod)
 if [ -f /usr/games/fortune -a "$(id -u)" != 0 ]; then
@@ -160,3 +165,14 @@ if [ -f /usr/games/fortune -a "$(id -u)" != 0 ]; then
 		/usr/games/fortune -as
 	fi
 fi
+
+# Import des alias
+if [ -f ~/.bashrcdir/bash_aliases ]; then
+    . ~/.bashrcdir/bash_aliases
+fi
+
+# Alias locaux et customisations machine par machine
+if [ -f ~/.bashrcdir/bash_aliases.local ]; then
+	. ~/.bashrcdir/bash_aliases.local
+fi
+
