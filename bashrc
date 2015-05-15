@@ -124,7 +124,8 @@ Pipe_End='\342\225\274'
 
 # Environnements virtuels Python
 if [[ $VIRTUAL_ENV != "" ]]; then
-    venv="$Green(i${VIRTUAL_ENV##*/})$Color_Off "
+    venv="$Green(${VIRTUAL_ENV##*/})$Color_Off "
+# Environnements virtuels Ruby
 elif [ -f ~/.rvm/bin/rvm-prompt ]; then
 	rvb=$(~/.rvm/bin/rvm-prompt)
 	if [[ $rvb != "" ]]; then
@@ -154,8 +155,16 @@ else
     BIUser_Color=$BIGreen
 fi
 
+# Privilege
+if [ "`id -u`" -eq 0 ]; then
+	privilege='#'
+else
+	privilege='$'
+fi
+
+
 # Mise en forme du prompt
-export PS1="$Pipe_LU $BBlue[\#] $Yellow(\D{%d-%m-%y} $BYellow\t$Yellow) $BIUser_Color\u$IUser_Color@$BIUser_Color\h$Color_Off: $BPurple\w $BRed\$$Color_Off$venv\n$Pipe_LD$Pipe_End "
+export PS1="$Pipe_LU $BBlue[\#] $Yellow(\D{%d-%m-%y} $BYellow\t$Yellow) $BIUser_Color\u$IUser_Color@$BIUser_Color\h$Color_Off: $BPurple\w $BRed$privilege$Color_Off$venv\n$Pipe_LD$Pipe_End "
 
 # Citation aléatoire (fortune-mod)
 if [ -f /usr/games/fortune -a "$(id -u)" != 0 ]; then
