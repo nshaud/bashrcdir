@@ -123,6 +123,7 @@ Pipe_LD='\342\224\224'
 Pipe_End='\342\225\274'
 
 function virtualenv_info(){
+	venv=""
     # Environnements virtuels Python
     if [[ $VIRTUAL_ENV != "" ]]; then
         venv="$Green(${VIRTUAL_ENV##*/})$Color_Off "
@@ -131,11 +132,7 @@ function virtualenv_info(){
     	rvb=$(~/.rvm/bin/rvm-prompt)
     	if [[ $rvb != "" ]]; then
     		venv="$IRed($rvb)$Color_Off "
-    	else
-    		venv=""
     	fi
-    else
-    	venv=""
     fi
 	echo -e $venv
 }
