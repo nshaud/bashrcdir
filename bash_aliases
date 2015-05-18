@@ -69,9 +69,9 @@ function faketype(){
 # Lecture vidéo en ASCII Art
 function vid2ascii(){
 	# Vérifie la présence de mplayer
-	command -v foo >/dev/null 2>&1 || { echo -e >&2 "$ROUGE" "Cette fonction nécessite mplayer." "$NORMAL"; exit 1; }
+	command -v mplayer >/dev/null 2>&1 || { echo -e >&2 "$ROUGE" "Cette fonction nécessite mplayer." "$NORMAL"; return; }
 	# Vérifie la présence de libaa
-	ldconfig -p | grep libaa.so >/dev/null 2>&1 || { echo -e >&2 "$ROUGE" "Cette option nécessite que libaa soit présente sur le système." "$NORMAL"; exit 1; }
+	ldconfig -p | grep libaa.so >/dev/null 2>&1 || { echo -e >&2 "$ROUGE" "Cette option nécessite que libaa soit présente sur le système." "$NORMAL"; return; }
 
 	# Rend local OPTIND (pour getopt)
 	local OPTIND o a
@@ -94,7 +94,7 @@ function vid2ascii(){
 		# Couleur (color)
         c)
 			# Vérifie la présence de libcaca
-			ldconfig -p | grep libcaca.so >/dev/null 2>&1 || { echo -e >&2 "$ROUGE" "Cette option nécessite que libcaca soit présente sur le système." "$NORMAL"; exit 1; }
+			ldconfig -p | grep libcaca.so >/dev/null 2>&1 || { echo -e >&2 "$ROUGE" "Cette option nécessite que libcaca soit présente sur le système." "$NORMAL"; return; }
 			# Force la variable CACA_DRIVER pour l'utilisation de ncurses
 			# (caca ne supporte pas la directive caca:driver=curses)
 			FORCE_DRIVER='CACA_DRIVER=ncurses'
