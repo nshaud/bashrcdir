@@ -74,7 +74,7 @@ function vid2ascii(){
 	ldconfig -p | grep libaa.so >/dev/null 2>&1 || { echo -e >&2 "$ROUGE" "Cette option nécessite que libaa soit présente sur le système." "$NORMAL"; return; }
 
 	# Rend local OPTIND (pour getopt)
-	local OPTIND o a
+	local OPTIND opt c h q v
 	# Commande player de base
 	# -monitorpixelaspect : définit le ratio largeur/hauteur (1/2 permet de compenser la taille des caractères)
 	# -contrast 50 : pousse le contraste pour avoir une meilleure différence noire/blanc
