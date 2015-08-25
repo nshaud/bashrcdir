@@ -64,44 +64,44 @@ alias imperial-march="beep -l 350 -f 392 -D 100 --new -l 350 -f 392 -D 100 --new
 
 # Simule une écriture au clavier 
 function faketype(){
-	echo -e "$*" | pv -qL 10
+    echo -e "$*" | pv -qL 10
 }
 
 # Lecture vidéo en ASCII Art
 function vid2ascii(){
-	# Vérifie la présence de mplayer
-	command -v mplayer >/dev/null 2>&1 || { echo -e >&2 "$ROUGE" "Cette fonction nécessite mplayer." "$NORMAL"; return; }
-	# Vérifie la présence de libaa
-	ldconfig -p | grep libaa.so >/dev/null 2>&1 || { echo -e >&2 "$ROUGE" "Cette option nécessite que libaa soit présente sur le système." "$NORMAL"; return; }
+    # Vérifie la présence de mplayer
+    command -v mplayer >/dev/null 2>&1 || { echo -e >&2 "$ROUGE" "Cette fonction nécessite mplayer." "$NORMAL"; return; }
+    # Vérifie la présence de libaa
+    ldconfig -p | grep libaa.so >/dev/null 2>&1 || { echo -e >&2 "$ROUGE" "Cette option nécessite que libaa soit présente sur le système." "$NORMAL"; return; }
 
-	# Rend local OPTIND (pour getopt)
-	local OPTIND opt c h q v
-	# Commande player de base
-	# -monitorpixelaspect : définit le ratio largeur/hauteur (1/2 permet de compenser la taille des caractères)
-	# -contrast 50 : pousse le contraste pour avoir une meilleure différence noire/blanc
-	# -quiet : supprime le HUD Mplayer
-	# -nolirc : désactive le support des télécommandes et fait disparaître deux messages d'erreurs inutiles
+    # Rend local OPTIND (pour getopt)
+    local OPTIND opt c h q v
+    # Commande player de base
+    # -monitorpixelaspect : définit le ratio largeur/hauteur (1/2 permet de compenser la taille des caractères)
+    # -contrast 50 : pousse le contraste pour avoir une meilleure différence noire/blanc
+    # -quiet : supprime le HUD Mplayer
+    # -nolirc : désactive le support des télécommandes et fait disparaître deux messages d'erreurs inutiles
     local COMMAND="mplayer -monitorpixelaspect 0.5 -contrast 50 -quiet -nolirc "
-	# Par défaut, on utilise aa sous ncurses pour l'affichage
+    # Par défaut, on utilise aa sous ncurses pour l'affichage
     local LIB="-vo aa:driver=curses "
     local OPTIONS=""
-	local FORCE_DRIVER=""
-	local VIDEO=""
+    local FORCE_DRIVER=""
+    local VIDEO=""
     local EXECUTE=1
 
-	# Récupération des arguments
+    # Récupération des arguments
     while getopts "chqv:" opt; do
       case $opt in
-		# Couleur (color)
+        # Couleur (color)
         c)
-			# Vérifie la présence de libcaca
-			ldconfig -p | grep libcaca.so >/dev/null 2>&1 || { echo -e >&2 "$ROUGE" "Cette option nécessite que libcaca soit présente sur le système." "$NORMAL"; return; }
-			# Force la variable CACA_DRIVER pour l'utilisation de ncurses
-			# (caca ne supporte pas la directive caca:driver=curses)
-			FORCE_DRIVER='CACA_DRIVER=ncurses'
+            # Vérifie la présence de libcaca
+            ldconfig -p | grep libcaca.so >/dev/null 2>&1 || { echo -e >&2 "$ROUGE" "Cette option nécessite que libcaca soit présente sur le système." "$NORMAL"; return; }
+            # Force la variable CACA_DRIVER pour l'utilisation de ncurses
+            # (caca ne supporte pas la directive caca:driver=curses)
+            FORCE_DRIVER='CACA_DRIVER=ncurses'
             LIB=" -vo caca " 
             ;;
-		# Aide (help)
+        # Aide (help)
         h)
             echo -e "$VERT" "Aide de la fonction vid2ascii :" "\n"
             echo -e "    - Utilisation : vid2ascii -v VIDEO --options" "\n"
@@ -112,27 +112,27 @@ function vid2ascii(){
             echo -e "$NORMAL";
             EXECUTE=0
             ;;
-		# Silencieux (quiet)
-		# Supprime encore plus de messages mplayer
+        # Silencieux (quiet)
+        # Supprime encore plus de messages mplayer
         q)
             OPTIONS+=" -really-quiet "
             ;;
-		# Vidéo (video)
-		# Nécessite un argument
+        # Vidéo (video)
+        # Nécessite un argument
         v)
             VIDEO="\"${OPTARG}\""
             ;;
-		# Option par défaut (inconnue)
+        # Option par défaut (inconnue)
         \?)
-			echo "Option inconnue : -$OPTARG" >&2
-			EXECUTE=0
+            echo "Option inconnue : -$OPTARG" >&2
+            EXECUTE=0
             ;;
       esac
     done
     if [[ $EXECUTE -eq 1 ]]; then
-		# Affiche et exécute la commande
-		echo $FORCE_DRIVER $COMMAND $LIB $OPTIONS $VIDEO
+        # Affiche et exécute la commande
+        echo $FORCE_DRIVER $COMMAND $LIB $OPTIONS $VIDEO
         echo -e "$ROUGE" "Appuyez sur q ou bien faites CTRL+C pour couper la vidéo" "$NORMAL"
-		eval $FORCE_DRIVER $COMMAND $LIB $OPTIONS $VIDEO
+        eval $FORCE_DRIVER $COMMAND $LIB $OPTIONS $VIDEO
     fi
 }

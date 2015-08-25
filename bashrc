@@ -9,7 +9,7 @@ if [ -f /etc/bash_completion ]; then
 fi
 
 if [ -f /usr/share/bash-completion/bash_completion ]; then
-	. /usr/share/bash-completion/bash_completion
+    . /usr/share/bash-completion/bash_completion
 fi
 
 xhost +local:root > /dev/null 2>&1
@@ -123,33 +123,33 @@ Pipe_LD='\342\224\224'
 Pipe_End='\342\225\274'
 
 function virtualenv_info(){
-	venv=""
+    venv=""
     # Environnements virtuels Python
     if [[ $VIRTUAL_ENV != "" ]]; then
         venv="$Green(${VIRTUAL_ENV##*/})$Color_Off "
     # Environnements virtuels Ruby
     elif [ -f ~/.rvm/bin/rvm-prompt ]; then
-    	rvb=$(~/.rvm/bin/rvm-prompt)
-    	if [[ $rvb != "" ]]; then
-    		venv="$IRed($rvb)$Color_Off "
-    	fi
+        rvb=$(~/.rvm/bin/rvm-prompt)
+        if [[ $rvb != "" ]]; then
+            venv="$IRed($rvb)$Color_Off "
+        fi
     fi
-	echo -e $venv
+    echo -e $venv
 }
 
 # Choix des couleurs pour le prompt
 if [[ $EUID == 0 ]]; then
-	# Root
+    # Root
     User_Color=$IRed
     BUser_Color=$BRed
     BIUser_Color=$BIRed
 elif [ -n "$SSH_CLIENT" ]; then
-	# SSH
+    # SSH
     User_Color=$IBlue
     BUser_Color=$BBlue
     BIUser_Color=$BIBlue
 else
-	# Normal
+    # Normal
     User_Color=$IGreen
     BUser_Color=$BGreen
     BIUser_Color=$BIGreen
@@ -157,9 +157,9 @@ fi
 
 # Privilege
 if [ "`id -u`" -eq 0 ]; then
-	privilege='#'
+    privilege='#'
 else
-	privilege='$'
+    privilege='$'
 fi
 
 # Empêche virtualenv de changer le prompt
@@ -172,11 +172,11 @@ export PS1="$Pipe_LU $BBlue[\#] $Yellow(\D{%d-%m-%y} $BYellow\t$Yellow) $BIUser_
 
 # Citation aléatoire (fortune-mod)
 if [ -f /usr/games/fortune -a "$(id -u)" != 0 ]; then
-	if [ -f /usr/games/cowsay -a "$(id -u)" != 0 ]; then
-		/usr/games/fortune -as | /usr/games/cowsay -nf duck
-	else
-		/usr/games/fortune -as
-	fi
+    if [ -f /usr/games/cowsay -a "$(id -u)" != 0 ]; then
+        /usr/games/fortune -as | /usr/games/cowsay -nf duck
+    else
+        /usr/games/fortune -as
+    fi
 fi
 
 # Import des alias
@@ -186,6 +186,6 @@ fi
 
 # Alias locaux et customisations machine par machine
 if [ -f ~/.bashrcdir/bash_aliases.local ]; then
-	. ~/.bashrcdir/bash_aliases.local
+    . ~/.bashrcdir/bash_aliases.local
 fi
 
