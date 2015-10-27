@@ -141,3 +141,7 @@ function vid2ascii(){
         eval $FORCE_DRIVER $COMMAND $LIB $OPTIONS $VIDEO
     fi
 }
+
+if [[ $TERMINOLOGY = 1 ]]; then
+    alias ls='tyls'
+fi
