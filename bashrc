@@ -189,3 +189,8 @@ if [ -f ~/.bashrcdir/bash_aliases.local ]; then
     . ~/.bashrcdir/bash_aliases.local
 fi
 
+# Modification locales
+
+if [ -f ~/.bashrcdir/bashrc.local ]; then
+    . ~/.bashrcdir/bashrc.local
+fi
