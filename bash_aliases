@@ -30,6 +30,7 @@ alias rm='rm --preserve-root'
 # Alias quotidiens
 alias ssudo='sudo -sE'
 alias ss='ssudo'
+alias sudo='sudo -E'
 
 # Recharge le bashrc
 alias resetbashrc='source ~/.bashrc'
