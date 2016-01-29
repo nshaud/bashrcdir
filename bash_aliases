@@ -69,7 +69,7 @@ alias imperial-march="beep -l 350 -f 392 -D 100 --new -l 350 -f 392 -D 100 --new
 
 # Tue un processus en fonction de son nom
 function kill_by_name(){
-    kill `ps -ef | grep $1 | grep -v grep | cut -d ' ' -f 2`
+    kill `ps -ef | grep $1 | grep -v grep | cut -d ' ' -f 3`
 }
 
 alias killn='kill_by_name'
