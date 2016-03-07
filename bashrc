@@ -150,7 +150,7 @@ export PS1="$Color_Off$Pipe_LU $BBlue[\#] $Yellow(\D{%d-%m-%y} $BYellow\t$Yellow
 # Citation aléatoire (fortune-mod)
 if [ -f /usr/games/fortune -a "$(id -u)" != 0 ]; then
     if [ -f /usr/games/cowsay -a "$(id -u)" != 0 ]; then
-        /usr/games/fortune -as | /usr/games/cowsay -nf duck
+        /usr/games/fortune -as -n 100 | /usr/games/cowsay -f duck -W 60
     else
         /usr/games/fortune -as
     fi
