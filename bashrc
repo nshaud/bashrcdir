@@ -106,7 +106,7 @@ function virtualenv_info(){
     venv=""
     # Environnements virtuels Python
     if [[ $VIRTUAL_ENV != "" ]]; then
-        venv="$Green(${VIRTUAL_ENV##*/})$Color_Off "
+        venv="$BGreen(${VIRTUAL_ENV##*/})$Color_Off "
     # Environnements virtuels Ruby
     elif [ -f ~/.rvm/bin/rvm-prompt ]; then
         rvb=$(~/.rvm/bin/rvm-prompt)
@@ -142,7 +142,13 @@ fi
 # Empêche virtualenv de changer le prompt
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
+# Configuration pour virtualenvwrapper
+WORKON_HOME=~/.venvs
+
 venv="\$(virtualenv_info)"
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+    . /usr/local/bin/virtualenvwrapper.sh
+fi
 
 # Mise en forme du prompt
 export PS1="$Color_Off$Pipe_LU $BBlue[\#] $Yellow(\D{%d-%m-%y} $BYellow\t$Yellow) $BUser_Color\u@$User_Color\h$Color_Off: $BPurple\w $BRed$privilege$Color_Off ${venv}\n$Pipe_LD$Pipe_End "
