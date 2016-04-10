@@ -29,6 +29,7 @@ shopt -s hostcomplete
 
 export HISTSIZE=10000
 export HISTFILESIZE=${HISTSIZE}
+export HISTTIMEFORMAT="%d/%m %H:%M:%S "
 export HISTCONTROL=ignoreboth
 export EDITOR=vim
 
@@ -122,6 +123,10 @@ if [[ $EUID == 0 ]]; then
     # Root
     User_Color=$Red
     BUser_Color=$BRed
+elif [ -n "$STY" ]; then
+    # Screen
+    User_Color=$Yellow
+    BUser_Color=$BYellow
 elif [ -n "$SSH_CLIENT" ]; then
     # SSH
     User_Color=$Blue
@@ -143,7 +148,7 @@ fi
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # Configuration pour virtualenvwrapper
-WORKON_HOME=~/.venvs
+export WORKON_HOME=~/.venvs
 
 venv="\$(virtualenv_info)"
 if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
@@ -173,7 +178,6 @@ if [ -f ~/.bashrcdir/bash_aliases.local ]; then
 fi
 
 # Modification locales
-
-if [ -f ~/.bashrcdir/bashrc.local ]; then
-    . ~/.bashrcdir/bashrc.local
+if [ -f ~/.bashrcdir/bashrc_local ]; then
+    . ~/.bashrcdir/bashrc_local
 fi
