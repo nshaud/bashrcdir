@@ -48,6 +48,9 @@ alias safe-update='sudo apt update && sudo apt upgrade'
 # Toujours permettre de continuer un téléchargement wget interrompu
 alias wget='wget -c'
 
+# Copie le contenu d'un fichier dans le presse-papier
+alias copy='xsel -i --clipboard <'
+
 # Ouvrir l'explorateur dans le dossier courant
 alias nemo='nemo .'
 alias nautilus='nautilus .'
