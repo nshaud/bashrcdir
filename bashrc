@@ -127,6 +127,10 @@ elif [ -n "$STY" ]; then
     # Screen
     User_Color=$Yellow
     BUser_Color=$BYellow
+elif [ -n "$TMUX" ]; then
+    # tmux
+    User_Color=$Yellow
+    BUser_Color=$BYellow
 elif [ -n "$SSH_CLIENT" ]; then
     # SSH
     User_Color=$Blue
