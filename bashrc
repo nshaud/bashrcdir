@@ -155,9 +155,6 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 export WORKON_HOME=~/.venvs
 
 venv="\$(virtualenv_info)"
-if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
-    . /usr/local/bin/virtualenvwrapper.sh
-fi
 
 # Mise en forme du prompt
 export PS1="$Color_Off$Pipe_LU $BBlue[\#] $Yellow(\D{%d-%m-%y} $BYellow\t$Yellow) $BUser_Color\u@$User_Color\h$Color_Off: $BPurple\w $BRed$privilege$Color_Off ${venv}\n$Pipe_LD$Pipe_End "
