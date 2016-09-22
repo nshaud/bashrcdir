@@ -144,3 +144,5 @@ function vid2ascii(){
         eval $FORCE_DRIVER $COMMAND $LIB $OPTIONS $VIDEO
     fi
 }
+
+alias nvidia-smi='watch -t -n 1 nvidia-smi'
