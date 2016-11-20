@@ -39,7 +39,8 @@ export EDITOR=vim
 # Utilisation des couleurs
 # Charge des variables pour les couleurs
 # Reset
-Color_Off=$(tput sgr0)$(tput setaf 9)       # Text Reset
+#Color_Off=$(tput sgr0)$(tput setaf 9)       # Text Reset
+Color_Off=$(echo -en "\e[0m")
 
 # Regular Colors
 Black=$(tput sgr0)$(tput setaf 0)  # Black
