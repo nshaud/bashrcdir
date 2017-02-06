@@ -32,6 +32,8 @@ export HISTFILESIZE=${HISTSIZE}
 export HISTTIMEFORMAT="%d/%m %H:%M:%S "
 export HISTCONTROL=ignoreboth
 export EDITOR=vim
+# Met à jour l'historique de bash immédiatement
+PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
 # Ne rien faire en mode non interactif
 [ -z "$PS1" ] && return
