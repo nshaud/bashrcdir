@@ -151,6 +151,15 @@ else
     privilege='$'
 fi
 
+# Exit status
+exitstatus(){
+    if [ $? = 0 ]; then
+        echo -e "$Green✔ $Color_Off"; 
+    else
+        echo -e "$Red✘ $Color_Off"; 
+    fi
+}
+
 # Empêche virtualenv de changer le prompt
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
@@ -160,7 +169,7 @@ export WORKON_HOME=~/.venvs
 venv="\$(virtualenv_info)"
 
 # Mise en forme du prompt
-export PS1="$Color_Off$Pipe_LU $BBlue[\#] $Yellow(\D{%d-%m-%y} $BYellow\t$Yellow) $BUser_Color\u@$User_Color\h$Color_Off: $BPurple\w $BRed$privilege$Color_Off ${venv}\n$Pipe_LD$Pipe_End "
+export PS1="$Color_Off$Pipe_LU \$(exitstatus)$BBlue[\#] $Yellow(\D{%d-%m-%y} $BYellow\t$Yellow) $BUser_Color\u@$User_Color\h$Color_Off: $BPurple\w $BRed$privilege$Color_Off ${venv}\n$Pipe_LD$Pipe_End "
 
 # Citation aléatoire (fortune-mod)
 if [ -f /usr/games/fortune -a "$(id -u)" != 0 ]; then
