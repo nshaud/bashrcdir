@@ -149,6 +149,7 @@ function vid2ascii(){
 }
 
 alias nvidia-smi='watch -t -n 1 nvidia-smi'
+alias nvm='nvidia-smi'
 alias gpu_users='\nvidia-smi -q -d PIDS | grep "Process ID" | tr -s '"'"' '"'"' | cut -d '"'"' '"'"' -f 5 | xargs -n 1 -I {} sh -c "ps -u -p {}"'
 
 # Colored manpages
