@@ -111,6 +111,8 @@ function virtualenv_info(){
     # Environnements virtuels Python
     if [[ $VIRTUAL_ENV != "" ]]; then
         venv="$BGreen(${VIRTUAL_ENV##*/})$Color_Off "
+    elif [[ $CONDA_DEFAULT_ENV != "" ]]; then
+        venv="$BGreen(${CONDA_DEFAULT_ENV##*/})$Color_Off "
     # Environnements virtuels Ruby
     elif [ -f ~/.rvm/bin/rvm-prompt ]; then
         rvb=$(~/.rvm/bin/rvm-prompt)
