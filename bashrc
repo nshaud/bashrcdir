@@ -197,5 +197,5 @@ fi
 
 # Modification locales
 if [ -f ~/.bashrcdir/bashrc_local ]; then
-    . ~/.bashrcdir/bashrc_local
+    . ~/.bashrcdir/bash_local
 fi
