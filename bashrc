@@ -17,6 +17,9 @@ xhost +local:root > /dev/null 2>&1
 # Active l'autocomplétion même avec sudo
 complete -cf sudo
 
+# Masque les fichiers cachés dans l'autocomplétion
+bind 'set match-hidden-files off'
+
 shopt -s autocd
 shopt -s cdspell
 shopt -s checkwinsize
