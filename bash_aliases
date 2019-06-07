@@ -165,3 +165,8 @@ man() {
         LESS_TERMCAP_us=$(printf "\e[1;32m") \
             man "$@"
 }
+
+# Cheat sheets from cht.sh
+function cheat(){
+	curl cht.sh/$1
+}
