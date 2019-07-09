@@ -170,3 +170,7 @@ man() {
 function cheat(){
 	curl cht.sh/$1
 }
+
+function what_docker_contains(){
+    docker ps | grep `head -n 1 /proc/$1/cgroup | cut -d '/' -f 3 | cut -c1-6`
+}
