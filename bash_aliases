@@ -174,3 +174,6 @@ function cheat(){
 function what_docker_contains(){
     docker ps | grep `head -n 1 /proc/$1/cgroup | cut -d '/' -f 3 | cut -c1-6`
 }
+
+# From https://twitter.com/gro_tsen/status/1445811031083831298
+shutup() { "$@" > /dev/null 2>&1 & }
